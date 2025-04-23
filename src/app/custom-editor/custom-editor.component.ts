@@ -37,6 +37,7 @@ export class CustomEditorComponent {
   isEditingLink: boolean = false;
   isInlineEditLinkVisible: boolean = false;
   inlineEditorPosition: { top: number; left: number } = { top: 0, left: 0 };
+  showBlockDropdown: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -48,6 +49,18 @@ export class CustomEditorComponent {
   applyList(command: string): void {
     this.editorRef.nativeElement.focus();
     document.execCommand(command, false);
+  }
+
+  applyBlockFormat(blockType: string): void {
+    if (blockType) {
+      this.editorRef.nativeElement.focus();
+      document.execCommand('formatBlock', false, blockType);
+      this.showBlockDropdown = false; // Close the dropdown after selection
+    }
+  }
+
+  toggleBlockDropdown(): void {
+    this.showBlockDropdown = !this.showBlockDropdown;
   }
 
   openLinkDialog(): void {
@@ -76,6 +89,7 @@ export class CustomEditorComponent {
     this.isEditingLink = false;
     this.currentLink = null;
     this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
+    this.showBlockDropdown = false; // Ensure dropdown is closed
   }
 
   insertLink(): void {
@@ -132,6 +146,12 @@ export class CustomEditorComponent {
       this.linkOptionsToolbarRef.nativeElement.contains(target)
     ) {
       return;
+    }
+    if (
+      this.showBlockDropdown &&
+      !(event.target as Element)?.closest('.dropdown')
+    ) {
+      this.showBlockDropdown = false;
     }
 
     if (target.tagName === 'A') {

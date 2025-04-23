@@ -10,6 +10,17 @@
     </button>
     <button (click)="openLinkDialog()">🔗</button>
     <button (click)="openImageDialog()">🖼️</button>
+
+    <div class="dropdown">
+      <button class="dropdown-toggle" (click)="toggleBlockDropdown()">Format</button>
+      <div class="dropdown-menu" *ngIf="showBlockDropdown">
+        <button (click)="applyBlockFormat('h1')">Heading 1</button>
+        <button (click)="applyBlockFormat('h2')">Heading 2</button>
+        <button (click)="applyBlockFormat('h3')">Heading 3</button>
+        <button (click)="applyBlockFormat('p')">Paragraph</button>
+        <button (click)="applyBlockFormat('div')">Generic Block</button>
+      </div>
+    </div>
   </div>
   <div class="editable-area" contenteditable="true" #editor></div>
 </div>
