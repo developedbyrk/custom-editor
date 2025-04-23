@@ -38,7 +38,7 @@ export class CustomEditorComponent {
   isInlineEditLinkVisible: boolean = false;
   inlineEditorPosition: { top: number; left: number } = { top: 0, left: 0 };
   showBlockDropdown: boolean = false;
-
+  savedHtmlContent: string | null = null;
   constructor(private cdr: ChangeDetectorRef) {}
 
   applyFormat(command: string, value?: string): void {
@@ -166,7 +166,7 @@ export class CustomEditorComponent {
   showLinkOptions(linkElement: HTMLAnchorElement): void {
     this.currentLink = linkElement;
     this.isLinkOptionsVisible = true;
-    this.isInlineEditLinkVisible = false; // Hide the larger dialog if it was open
+    // this.isInlineEditLinkVisible = false; // Hide the larger dialog if it was open
     this.linkOptionsPosition = {
       top: linkElement.offsetTop - 30,
       left: linkElement.offsetLeft,
@@ -178,36 +178,36 @@ export class CustomEditorComponent {
     this.isInlineEditLinkVisible = false; // Also hide the inline editor when hiding options
   }
 
-  enableInlineEditLink(): void {
-    if (this.currentLink) {
-      console.log('enableInlineEditLink called');
-      this.isInlineEditLinkVisible = true;
-      this.inlineEditorPosition = {
-        top: this.currentLink.offsetTop + this.currentLink.offsetHeight + 5, // Position below the link
-        left: this.currentLink.offsetLeft,
-      };
-      console.log('isInlineEditLinkVisible:', this.isInlineEditLinkVisible);
-      console.log('inlineEditorPosition:', this.inlineEditorPosition);
-      setTimeout(() => this.inlineLinkInputRef?.nativeElement.focus(), 0);
-      this.hideLinkOptions(); // Hide the options toolbar
-      this.cdr.detectChanges(); // Manually trigger change detection
-    }
-  }
+  // enableInlineEditLink(): void {
+  //   if (this.currentLink) {
+  //     console.log('enableInlineEditLink called');
+  //     this.isInlineEditLinkVisible = true;
+  //     this.inlineEditorPosition = {
+  //       top: this.currentLink.offsetTop + this.currentLink.offsetHeight + 5, // Position below the link
+  //       left: this.currentLink.offsetLeft,
+  //     };
+  //     console.log('isInlineEditLinkVisible:', this.isInlineEditLinkVisible);
+  //     console.log('inlineEditorPosition:', this.inlineEditorPosition);
+  //     setTimeout(() => this.inlineLinkInputRef?.nativeElement.focus(), 0);
+  //     this.hideLinkOptions(); // Hide the options toolbar
+  //     this.cdr.detectChanges(); // Manually trigger change detection
+  //   }
+  // }
 
-  applyInlineEditLink(): void {
-    if (this.currentLink && this.inlineLinkInputRef?.nativeElement.value) {
-      this.currentLink.href = this.inlineLinkInputRef.nativeElement.value;
-      console.log('Link updated to:', this.currentLink.href);
-    }
-    this.isInlineEditLinkVisible = false;
-    this.editorRef.nativeElement.focus();
-  }
+  // applyInlineEditLink(): void {
+  //   if (this.currentLink && this.inlineLinkInputRef?.nativeElement.value) {
+  //     this.currentLink.href = this.inlineLinkInputRef.nativeElement.value;
+  //     console.log('Link updated to:', this.currentLink.href);
+  //   }
+  //   this.isInlineEditLinkVisible = false;
+  //   this.editorRef.nativeElement.focus();
+  // }
 
-  cancelInlineEditLink(): void {
-    console.log('cancelInlineEditLink called');
-    this.isInlineEditLinkVisible = false;
-    this.editorRef.nativeElement.focus();
-  }
+  // cancelInlineEditLink(): void {
+  //   console.log('cancelInlineEditLink called');
+  //   this.isInlineEditLinkVisible = false;
+  //   this.editorRef.nativeElement.focus();
+  // }
 
   removeLink(): void {
     if (this.currentLink) {
@@ -220,5 +220,9 @@ export class CustomEditorComponent {
       this.isInlineEditLinkVisible = false;
       this.editorRef.nativeElement.focus();
     }
+  }
+
+  saveContent(): void {
+    this.savedHtmlContent = this.editorRef.nativeElement.innerHTML;
   }
 }
