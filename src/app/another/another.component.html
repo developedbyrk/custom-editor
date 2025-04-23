@@ -1,0 +1,11 @@
+<h2>Using the Custom Editor in Another Component</h2>
+
+<h3>Editor with Toolbar:</h3>
+<app-custom-editor [showToolbar]="showEditorWithToolbar"></app-custom-editor>
+
+<button (click)="toggleToolbar()">Toggle Toolbar for First Editor</button>
+
+<hr>
+
+<h3>Editor without Toolbar:</h3>
+<app-custom-editor [showToolbar]="false"></app-custom-editor>

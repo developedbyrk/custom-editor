@@ -1,0 +1,54 @@
+<div class="editor-container">
+  <div class="toolbar" *ngIf="showToolbar">
+    <button (click)="applyFormat('bold')"><b>B</b></button>
+    <button (click)="applyFormat('italic')"><i>I</i></button>
+    <button (click)="applyFormat('underline')"><u>U</u></button>
+    <button (click)="applyList('insertUnorderedList')">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.2em; height: 1.2em;">
+        <path d="M4 6H2V8H4V6ZM4 11H2V13H4V11ZM4 16H2V18H4V16ZM6 6H22V8H6V6ZM6 11H22V13H6V11ZM6 16H22V18H6V16Z" />
+      </svg>
+    </button>
+    <button (click)="openLinkDialog()">🔗</button>
+    <button (click)="openImageDialog()">🖼️</button>
+  </div>
+  <div class="editable-area" contenteditable="true" #editor></div>
+</div>
+
+<div *ngIf="isLinkOptionsVisible" class="link-options-toolbar" [ngStyle]="linkOptionsPosition" #linkOptionsToolbar>
+  <button (click)="enableInlineEditLink()">✏️</button>
+  <button (click)="removeLink()">🔗❌</button>
+</div>
+
+<div *ngIf="isInlineEditLinkVisible" class="inline-link-editor" [ngStyle]="inlineEditorPosition">
+  <input type="text" #inlineLinkInput [value]="currentLink?.href">
+  <button (click)="applyInlineEditLink()">✅</button>
+  <button (click)="cancelInlineEditLink()">❌</button>
+</div>
+
+<div *ngIf="showLinkDialog" class="dialog" #linkDialog>
+  <h3>Insert Link</h3>
+  <div class="form-group">
+    <label for="linkUrl">URL:</label>
+    <input type="text" id="linkUrl" #linkUrlInput>
+  </div>
+  <div class="actions">
+    <button (click)="insertLink()">Insert</button>
+    <button (click)="closeDialog()">Cancel</button>
+  </div>
+</div>
+
+<div *ngIf="showImageDialog" class="dialog" #imageDialog>
+  <h3>Insert Image</h3>
+  <div>
+    <label for="imageUrl">Image URL:</label>
+    <input type="text" id="imageUrl" #imageUrlInput>
+  </div>
+  <div>
+    <label for="imageUpload">Upload Image:</label>
+    <input type="file" id="imageUpload" #imageUploadInput (change)="uploadImage($event)">
+  </div>
+  <div class="actions">
+    <button (click)="insertImageFromUrl()">Insert from URL</button>
+    <button (click)="closeDialog()">Cancel</button>
+  </div>
+</div>
