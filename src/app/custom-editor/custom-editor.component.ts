@@ -65,14 +65,16 @@ export class CustomEditorComponent {
 
   openLinkDialog(): void {
     const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
+    if (selection && selection.rangeCount > 0 && !this.currentLink) {
+      // Only save selection if not editing
       this.savedSelection = selection.getRangeAt(0);
+    } else if (this.currentLink) {
+      this.savedSelection = null; // Don't need to save if re-linking
     } else {
       this.savedSelection = null;
     }
     this.showLinkDialog = true;
-    this.isEditingLink = false; // Reset editing flag
-    this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
+    this.isEditingLink = true; // Indicate that we are editing a link
     setTimeout(() => this.linkUrlInputRef.nativeElement.focus(), 0);
   }
 
@@ -85,11 +87,11 @@ export class CustomEditorComponent {
     this.showLinkDialog = false;
     this.showImageDialog = false;
     this.editorRef.nativeElement.focus();
-    this.hideLinkOptions(); // Hide link options when dialogs are closed
-    this.isEditingLink = false;
+    this.hideLinkOptions();
     this.currentLink = null;
-    this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
-    this.showBlockDropdown = false; // Ensure dropdown is closed
+    this.isInlineEditLinkVisible = false;
+    this.showBlockDropdown = false;
+    this.isEditingLink = false; // Reset editing flag on close
   }
 
   insertLink(): void {
@@ -102,18 +104,9 @@ export class CustomEditorComponent {
       selection?.addRange(this.savedSelection);
       document.execCommand('createLink', false, url);
       this.savedSelection = null;
-    } else {
-      document.execCommand('insertText', false, url);
-      const newSelection = window.getSelection();
-      const range = document.createRange();
-      const lastChild = this.editorRef.nativeElement.lastChild;
-      if (lastChild && lastChild.textContent === url) {
-        range.selectNodeContents(lastChild);
-        newSelection?.removeAllRanges();
-        newSelection?.addRange(range);
-      }
     }
     this.closeDialog();
+    this.isEditingLink = false;
   }
 
   insertImageFromUrl(): void {
@@ -188,22 +181,50 @@ export class CustomEditorComponent {
 
   hideLinkOptions(): void {
     this.isLinkOptionsVisible = false;
-    this.isInlineEditLinkVisible = false; // Also hide the inline editor when hiding options
+    // this.isInlineEditLinkVisible = false; // Also hide the inline editor when hiding options
   }
 
   // enableInlineEditLink(): void {
   //   if (this.currentLink) {
-  //     console.log('enableInlineEditLink called');
-  //     this.isInlineEditLinkVisible = true;
-  //     this.inlineEditorPosition = {
-  //       top: this.currentLink.offsetTop + this.currentLink.offsetHeight + 5, // Position below the link
-  //       left: this.currentLink.offsetLeft,
-  //     };
-  //     console.log('isInlineEditLinkVisible:', this.isInlineEditLinkVisible);
-  //     console.log('inlineEditorPosition:', this.inlineEditorPosition);
-  //     setTimeout(() => this.inlineLinkInputRef?.nativeElement.focus(), 0);
-  //     this.hideLinkOptions(); // Hide the options toolbar
-  //     this.cdr.detectChanges(); // Manually trigger change detection
+  //     const text = this.currentLink.textContent || '';
+  //     // Remove the existing link
+  //     const textNode = document.createTextNode(text);
+  //     this.currentLink.parentNode?.insertBefore(textNode, this.currentLink);
+  //     this.currentLink.parentNode?.removeChild(this.currentLink);
+  //     this.currentLink = null;
+  //     this.hideLinkOptions();
+  //     // Open the insert link dialog
+  //     this.openLinkDialog();
+  //     // Optionally, you could try to select the text that was previously linked
+  //     // to make it easier for the user to apply the new link.
+  //     this.selectText(text);
+  //   }
+  // }
+
+  // selectText(text: string): void {
+  //   const selection = window.getSelection();
+  //   const range = document.createRange();
+  //   const editableArea = this.editorRef.nativeElement;
+
+  //   function findTextNode(node: Node, searchText: string): Node | null {
+  //     if (node.nodeType === Node.TEXT_NODE && node.textContent === searchText) {
+  //       return node;
+  //     }
+  //     for (let i = 0; i < node.childNodes.length; i++) {
+  //       const found: Node | null = findTextNode(node.childNodes[i], searchText);
+  //       if (found) {
+  //         return found;
+  //       }
+  //     }
+  //     return null;
+  //   }
+
+  //   const textNode = findTextNode(editableArea, text);
+
+  //   if (textNode) {
+  //     range.selectNodeContents(textNode);
+  //     selection?.removeAllRanges();
+  //     selection?.addRange(range);
   //   }
   // }
 

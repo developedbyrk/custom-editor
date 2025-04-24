@@ -36,13 +36,29 @@
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
       }
     }
+
+    .dropdown-menu {
+      display: grid;
+      position: absolute;
+      gap: 4px;
+      padding-block: 4px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 4px;
+
+      button {
+        border: none;
+        padding-block: 4px;
+      }
+    }
   }
 
   .editable-area {
     padding: 15px;
     min-height: 200px;
     outline: none;
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: 1.6;
     letter-spacing: 0.01em;
   }
@@ -190,11 +206,4 @@
   border: 1px solid #eee;
   padding: 15px;
   border-radius: 4px;
-}
-
-.dropdown-menu {
-  display: grid;
-  position: absolute;
-  gap: 4px;
-  padding-top: 4px;
 }
