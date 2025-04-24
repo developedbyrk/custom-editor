@@ -163,6 +163,19 @@ export class CustomEditorComponent {
     }
   }
 
+  @HostListener('paste', ['$event'])
+  onPaste(event: ClipboardEvent): void {
+    event.preventDefault(); // Prevent the default paste behavior
+
+    const text = (event.clipboardData || (window as any).clipboard).getData(
+      'text'
+    );
+
+    if (text) {
+      document.execCommand('insertText', false, text);
+    }
+  }
+
   showLinkOptions(linkElement: HTMLAnchorElement): void {
     this.currentLink = linkElement;
     this.isLinkOptionsVisible = true;

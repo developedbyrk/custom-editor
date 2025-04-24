@@ -1,18 +1,27 @@
 <div class="editor-container">
   <div class="toolbar" *ngIf="showToolbar">
-    <button (click)="applyFormat('bold')"><strong>B</strong></button>
+    <button (click)="applyFormat('bold')"><b>B</b></button>
     <button (click)="applyFormat('italic')"><i>I</i></button>
     <button (click)="applyFormat('underline')"><u>U</u></button>
+    <button (click)="applyFormat('strikeThrough')"><s>S</s></button>
     <button (click)="applyList('insertUnorderedList')">
-      <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.2em; height: 1.2em;">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.2em; height: 1.2em">
         <path d="M4 6H2V8H4V6ZM4 11H2V13H4V11ZM4 16H2V18H4V16ZM6 6H22V8H6V6ZM6 11H22V13H6V11ZM6 16H22V18H6V16Z" />
+      </svg>
+    </button>
+    <button (click)="applyList('insertOrderedList')">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width: 1.2em; height: 1.2em">
+        <path
+          d="M5 17H3V19H5V17ZM5 12H3V14H5V12ZM5 7H3V9H5V7ZM7 17H21V19H7V17ZM7 12H21V14H7V12ZM7 7H21V9H7V7ZM2 7H1V10H2V7ZM2 12H1V15H2V12ZM2 17H1V20H2V17Z" />
       </svg>
     </button>
     <button (click)="openLinkDialog()">🔗</button>
     <button (click)="openImageDialog()">🖼️</button>
 
     <div class="dropdown">
-      <button class="dropdown-toggle" (click)="toggleBlockDropdown()">Format</button>
+      <button class="dropdown-toggle" (click)="toggleBlockDropdown()">
+        Format
+      </button>
       <div class="dropdown-menu" *ngIf="showBlockDropdown">
         <button (click)="applyBlockFormat('h1')">Heading 1</button>
         <button (click)="applyBlockFormat('h2')">Heading 2</button>
@@ -21,6 +30,7 @@
         <button (click)="applyBlockFormat('div')">Generic Block</button>
       </div>
     </div>
+    <button (click)="applyFormat('hiliteColor', 'yellow')">Highlight</button>
   </div>
   <div class="editable-area" contenteditable="true" #editor></div>
 </div>
@@ -40,7 +50,7 @@
   <h3>Insert Link</h3>
   <div class="form-group">
     <label for="linkUrl">URL:</label>
-    <input type="text" id="linkUrl" #linkUrlInput>
+    <input type="text" id="linkUrl" #linkUrlInput />
   </div>
   <div class="actions">
     <button (click)="insertLink()">Insert</button>
@@ -52,11 +62,11 @@
   <h3>Insert Image</h3>
   <div>
     <label for="imageUrl">Image URL:</label>
-    <input type="text" id="imageUrl" #imageUrlInput>
+    <input type="text" id="imageUrl" #imageUrlInput />
   </div>
   <div>
     <label for="imageUpload">Upload Image:</label>
-    <input type="file" id="imageUpload" #imageUploadInput (change)="uploadImage($event)">
+    <input type="file" id="imageUpload" #imageUploadInput (change)="uploadImage($event)" />
   </div>
   <div class="actions">
     <button (click)="insertImageFromUrl()">Insert from URL</button>
