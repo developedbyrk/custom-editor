@@ -31,6 +31,7 @@ export class CustomEditorComponent {
 
   showLinkDialog = false;
   showImageDialog = false;
+  showImageUrlInput = false; // Initially hide the URL input
   private savedSelection: Range | null = null;
   currentLink: HTMLAnchorElement | null = null; // Ensure it's HTMLAnchorElement
   isLinkOptionsVisible: boolean = false;
@@ -65,6 +66,8 @@ export class CustomEditorComponent {
   }
 
   openLinkDialog(): void {
+    this.showImageDialog = false; // Ensure image dialog is closed
+    this.showImageUrlInput = false; // Ensure image dialog is closed
     console.log('openLinkDialog() called');
     const selection = window.getSelection();
     this.savedSelection = null; // Reset savedSelection every time the dialog is opened
@@ -91,8 +94,14 @@ export class CustomEditorComponent {
   }
 
   openImageDialog(): void {
+    this.showLinkDialog = false; // Ensure link dialog is closed
     this.showImageDialog = true;
+    this.showImageUrlInput = false; // Reset to upload view
     this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
+  }
+
+  toggleImageUrlInput(): void {
+    this.showImageUrlInput = !this.showImageUrlInput;
   }
 
   closeDialog(): void {

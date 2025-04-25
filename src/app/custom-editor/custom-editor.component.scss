@@ -87,7 +87,8 @@
 
   .form-group {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
     margin-bottom: 15px;
 
     label {
@@ -120,7 +121,6 @@
     gap: 10px;
 
     button {
-      padding: 10px 15px;
       border: 1px solid #ddd;
       border-radius: 4px;
       background-color: #f9f9f9;
@@ -168,38 +168,17 @@
   }
 }
 
-// .inline-link-editor {
-//   position: absolute;
-//   background-color: white;
-//   border: 1px solid #ccc;
-//   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-//   padding: 5px;
-//   border-radius: 4px;
-//   z-index: 12; /* Above the link options toolbar */
-//   display: flex;
-//   align-items: center;
-//   gap: 5px;
+.btn-group{
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 16px;
+}
 
-//   input[type="text"] {
-//     padding: 5px;
-//     border: 1px solid #ddd;
-//     border-radius: 3px;
-//     font-size: 0.9em;
-//   }
-
-//   button {
-//     padding: 5px 8px;
-//     border: none;
-//     background-color: transparent;
-//     cursor: pointer;
-//     font-size: 0.9em;
-
-//     &:hover {
-//       background-color: #eee;
-//       border-radius: 2px;
-//     }
-//   }
-// }
+.grid-8{
+  display: grid;
+  gap: 8px;
+}
 
 .html-output-container {
   margin-top: 20px;

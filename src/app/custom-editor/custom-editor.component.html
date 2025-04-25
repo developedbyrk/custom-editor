@@ -52,19 +52,30 @@
   </div>
 </div>
 
-<div *ngIf="showImageDialog" class="dialog" #imageDialog>
+<div *ngIf="showImageDialog" class="dialog">
   <h3>Insert Image</h3>
-  <div>
-    <label for="imageUrl">Image URL:</label>
-    <input type="text" id="imageUrl" #imageUrlInput />
-  </div>
-  <div>
+
+  <div class="grid-8" *ngIf="!showImageUrlInput">
     <label for="imageUpload">Upload Image:</label>
     <input type="file" id="imageUpload" #imageUploadInput (change)="uploadImage($event)" />
+    <!-- <button type="button" (click)="toggleImageUrlInput()">Insert from URL</button> -->
   </div>
-  <div class="actions">
-    <button (click)="insertImageFromUrl()">Insert from URL</button>
-    <button (click)="closeDialog()">Cancel</button>
+
+  <div class="grid-8" *ngIf="showImageUrlInput">
+    <label for="imageUrl">Image URL:</label>
+    <input type="text" id="imageUrl" #imageUrlInput />
+    <button type="button" (click)="insertImageFromUrl()">Insert</button>
+    <!-- <button type="button" (click)="toggleImageUrlInput()">Upload Image</button> -->
+  </div>
+
+  <div class="btn-group">
+    <button type="button" *ngIf="!showImageUrlInput" (click)="toggleImageUrlInput()">
+      Insert from URL
+    </button>
+    <button type="button" *ngIf="showImageUrlInput" (click)="toggleImageUrlInput()">
+      Upload Image
+    </button>
+    <button type="button" (click)="closeDialog()">Cancel</button>
   </div>
 </div>
 
