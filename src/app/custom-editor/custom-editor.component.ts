@@ -37,7 +37,7 @@ export class CustomEditorComponent {
   isLinkOptionsVisible: boolean = false;
   linkOptionsPosition: { top: number; left: number } = { top: 0, left: 0 };
   isEditingLink: boolean = false;
-  isInlineEditLinkVisible: boolean = false;
+  // isInlineEditLinkVisible: boolean = false;
   inlineEditorPosition: { top: number; left: number } = { top: 0, left: 0 };
   showBlockDropdown: boolean = false;
   savedHtmlContent: string | null = null;
@@ -97,7 +97,7 @@ export class CustomEditorComponent {
     this.showLinkDialog = false; // Ensure link dialog is closed
     this.showImageDialog = true;
     this.showImageUrlInput = false; // Reset to upload view
-    this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
+    // this.isInlineEditLinkVisible = false; // Ensure inline editor is hidden
   }
 
   toggleImageUrlInput(): void {
@@ -110,7 +110,7 @@ export class CustomEditorComponent {
     this.editorRef.nativeElement.focus();
     this.hideLinkOptions();
     this.currentLink = null;
-    this.isInlineEditLinkVisible = false;
+    // this.isInlineEditLinkVisible = false;
     this.showBlockDropdown = false;
     this.isEditingLink = false; // Reset editing flag on close
   }
@@ -186,7 +186,7 @@ export class CustomEditorComponent {
       event.preventDefault();
     } else {
       this.hideLinkOptions();
-      this.isInlineEditLinkVisible = false; // Hide inline editor when clicking away from a link
+      // this.isInlineEditLinkVisible = false; // Hide inline editor when clicking away from a link
     }
   }
 
@@ -206,7 +206,7 @@ export class CustomEditorComponent {
   showLinkOptions(linkElement: HTMLAnchorElement): void {
     this.currentLink = linkElement;
     this.isLinkOptionsVisible = true;
-    this.isInlineEditLinkVisible = false; // Hide the larger dialog if it was open
+    // this.isInlineEditLinkVisible = false; // Hide the larger dialog if it was open
     this.linkOptionsPosition = {
       top: linkElement.offsetTop - 30,
       left: linkElement.offsetLeft,
@@ -215,7 +215,7 @@ export class CustomEditorComponent {
 
   hideLinkOptions(): void {
     this.isLinkOptionsVisible = false;
-    this.isInlineEditLinkVisible = false; // Also hide the inline editor when hiding options
+    // this.isInlineEditLinkVisible = false; // Also hide the inline editor when hiding options
   }
 
   enableInlineEditLink(): void {
@@ -235,7 +235,7 @@ export class CustomEditorComponent {
       this.currentLink.parentNode?.removeChild(this.currentLink);
       this.currentLink = null;
       this.hideLinkOptions();
-      this.isInlineEditLinkVisible = false;
+      // this.isInlineEditLinkVisible = false;
       this.editorRef.nativeElement.focus();
     }
   }
