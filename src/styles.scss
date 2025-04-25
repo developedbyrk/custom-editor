@@ -6,6 +6,13 @@ body {
   font-family: "Ubuntu", sans-serif;
 }
 
+h1,
+h2,
+h3,
+p {
+  margin-block: 0 8px;
+}
+
 input,
 button {
   font-family: inherit;
