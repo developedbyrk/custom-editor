@@ -4,7 +4,7 @@ import { CustomEditorComponent } from './custom-editor/custom-editor.component';
 
 export const routes: Routes = [
   {
-    path: 'custom-editor',
+    path: '',
     component: CustomEditorComponent,
   },
   {
