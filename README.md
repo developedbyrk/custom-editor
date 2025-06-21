@@ -1,4 +1,26 @@
-# MdEditor
+# Angular Custom Editor:
+
+Custom Angular-Based Editor with rich text formatting options including:
+
+Text Styling: Bold (B), Italic (I), Underline (U), Strikethrough (S)
+
+Media Support: Add links (🔗) and images (🖼️)
+
+Ol, Ul and Blockquote Supported
+
+Formatting Options:
+
+Heading 1
+
+Heading 2
+
+Heading 3
+
+Paragraph
+
+Generic Block
+
+---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
 
